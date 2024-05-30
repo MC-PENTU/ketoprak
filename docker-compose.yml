@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: ketoprak-server
+    restart: always
+    ports:
+      - "8000:8000"
+    
+  client:
+    build: ./client/ketoprak-client
+    container_name: ketoprak-client
+    restart: always
+    ports:
+      - "3000:3000"
+    

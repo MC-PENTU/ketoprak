@@ -30,3 +30,6 @@ Since this project is currently not dockerized, please install the python depend
 ```bash
 pip install -r requirements.txt 
 ```
+
+# Build and start the containers
+docker-compose up --build
