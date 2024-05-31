@@ -4,6 +4,10 @@ from langchain_openai import ChatOpenAI
 import os
 import dotenv
 
+# from news_parser.py
+from news_parser import parse_news
+
+# parameters and constants
 dotenv.load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 OPENAI_MODEL = "gpt-3.5-turbo-0125"
