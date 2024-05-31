@@ -30,3 +30,8 @@ Since this project is currently not dockerized, please install the python depend
 ```bash
 pip install -r requirements.txt 
 ```
+
+### Note for Developers
+```bash
+docker-compose up --build
+```
