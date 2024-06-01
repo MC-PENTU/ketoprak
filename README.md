@@ -15,6 +15,8 @@ KETOPRAK is a platform designed to enhance internal security by leveraging advan
 ### System Architecture
 
 ![System Architecture](https://raw.githubusercontent.com/MC-PENTU/ketoprak/d17ff4d400cbe5aa7e6a791469958c108da2825e/telegram-cloud-photo-size-5-6251500787284950665-x.jpg)
+
+![User Diagram](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/912/576/datas/gallery.jpg)
 ### Frontend
 
 1. Navigate to the frontend directory.
