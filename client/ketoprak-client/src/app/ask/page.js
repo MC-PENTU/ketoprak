@@ -1,10 +1,11 @@
 'use client';
-import { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 
 const SearchPage = () => {
+  const [searchBar, setSearchBar] = useState('');
   const [query, setQuery] = useState('');
   const [searchResult, setSearchResult] = useState(null);
   const router = useRouter();
@@ -13,7 +14,8 @@ const SearchPage = () => {
 
   // Function to handle search query input
   const handleSearchInputChange = (event) => {
-    setQuery(event.target.value);
+    setSearchBar(event.target.value);
+    console.log('Query:', event.target.value)
   };
 
   // Function to handle search submission
@@ -21,6 +23,7 @@ const SearchPage = () => {
     // Perform search based on the query (e.g., fetch data from API)
     // Set the search result state with the retrieved data
     // For demonstration purposes, let's assume searchResult is set with some dummy data
+    setQuery(searchBar.toLowerCase());
     const dummySearchResult = [
       {
         imageUrl: '/graph.jpeg', // Image URL
@@ -33,10 +36,23 @@ const SearchPage = () => {
           // Add more entities as needed
         ],
       },
-      // Add more search results as needed
     ];
-    setQuery('Assassination of John F. Kennedy');
-    setSearchResult(dummySearchResult);
+    const dummySearchResult2 = [
+      {
+        imageUrl: '/mexico.jpg', // Image URL
+        entities: [
+          { id: 1, type: 'Shooting', frequency: '120' },
+          { id: 2, type: 'Bombing', frequency: '30' },
+          { id: 3, type: 'Kidnapping', frequency: '29' },
+          { id: 4, type: 'Arson', frequency: '10' },
+          { id: 2, type: 'Hijacking', frequency: '2' },
+          // Add more entities as needed
+        ],
+      },
+    ];
+    if (query.includes('john')) setSearchResult(dummySearchResult);
+    if (query.includes('mexico')) setSearchResult(dummySearchResult2);
+    console.log(query)
   };
 
   return (
@@ -46,7 +62,7 @@ const SearchPage = () => {
           type="text"
           placeholder="Search..."
           style={styles.searchInput}
-          value={query}
+          value={searchBar}
           onChange={handleSearchInputChange}
         />
         <button style={styles.searchButton} onClick={handleSearchSubmit}>
@@ -54,13 +70,12 @@ const SearchPage = () => {
         </button>
       </div>
       <div style={styles.resultContainer}>
-        {searchResult && searchResult.map((item, index) => (
+        {searchResult && query.includes('john') && searchResult.map((item, index) => (
           <div key={index} style={styles.resultItem}>
             <div style={styles.imageContainer}>
               <Image src={item.imageUrl} alt={`Image ${index + 1}`} width={500} height={500} />
             </div>
             <div style={styles.tableContainer}>
-              {/* Placeholder for Table component */}
               <div style={styles.table}>
                 <div style={styles.tableRow}>
                   <div style={styles.tableHeader}>No.</div>
@@ -72,6 +87,46 @@ const SearchPage = () => {
                     <div style={styles.tableCell}>{entity.id}</div>
                     <div style={styles.tableCell}>{entity.name}</div>
                     <div style={styles.tableCell}>{entity.relation}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+       {searchResult && query.includes('colombia') && (
+        <div style={styles.infoBox}>
+          <div style={styles.infoBoxContent}>
+            <div style={styles.whiteBox}>
+              <p style={{ marginBottom: '1em' }}>
+                Colombia has faced significant challenges related to terrorism, primarily due to groups like the Revolutionary Armed Forces of Colombia (FARC) and the National Liberation Army (ELN). These organizations have historically engaged in violent acts, including bombings, assassinations, and massacres, targeting civilians and security forces alike. One of the deadliest attacks in recent memory occurred on January 17, 2019, in Bogotá, the nation's capital. A car bomb exploded outside a police academy, claiming the lives of 22 people. This brazen act, attributed to the ELN, underscored the ongoing security threats faced by Colombia.
+              </p>
+              <p style={{ marginBottom: '1em' }}>
+                The attack in Bogotá highlighted the persistent challenges to peace and stability despite significant efforts to negotiate peace agreements and reduce violence. While progress has been made, pockets of conflict remain, particularly in remote rural areas. The Colombian government has undertaken extensive measures to address these issues, including dismantling illicit networks, promoting socio-economic development, and enhancing security measures. However, the complex nature of terrorism in Colombia necessitates continued vigilance and collaboration among various stakeholders.
+              </p>
+              <p>
+                Despite the lingering threat of terrorism, Colombia has demonstrated resilience in its pursuit of peace and stability. The nation's commitment to addressing the root causes of conflict and fostering reconciliation reflects a determination to overcome the challenges posed by militant groups. As Colombia continues its journey towards lasting peace, sustained efforts in tackling terrorism and promoting inclusive development will be crucial in ensuring a more secure and prosperous future for all its citizens.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      {searchResult && query.includes('mexico') && searchResult.map((item, index) => (
+          <div key={index} style={styles.resultItem}>
+            <div style={styles.imageContainer}>
+              <Image src={item.imageUrl} alt={`Image ${index + 1}`} width={500} height={500} />
+            </div>
+            <div style={styles.tableContainer}>
+              <div style={styles.table}>
+                <div style={styles.tableRow}>
+                  <div style={styles.tableHeader}>No.</div>
+                  <div style={styles.tableHeader}>Type</div>
+                  <div style={styles.tableHeader}>Frequency</div>
+                </div>
+                {item.entities.map(entity => (
+                  <div style={styles.tableRow} key={entity.id}>
+                    <div style={styles.tableCell}>{entity.id}</div>
+                    <div style={styles.tableCell}>{entity.type}</div>
+                    <div style={styles.tableCell}>{entity.frequency}</div>
                   </div>
                 ))}
               </div>
@@ -175,7 +230,16 @@ const styles = {
     cursor: 'pointer',
     width:'160px'
   },
-  
+  whiteBox: {
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    padding: '20px',
+    marginTop: '20px',
+    marginBottom: '20px',
+    color: 'black',
+    width: '1050px',
+    textAlign: 'justify',
+  },  
 };
 
 export default SearchPage;
