@@ -6,7 +6,10 @@ const HomePage = () => {
   const router = useRouter();
 
   // Function to handle navigation to the "/input-data" route
-  const handleInputDataClick = () => {
+  const handleAskButton = () => {
+    router.push('/ask'); // Navigate to the "/input-data" route
+  };
+  const handleInputDataButton = () => {
     router.push('/input-data'); // Navigate to the "/input-data" route
   };
 
@@ -14,11 +17,11 @@ const HomePage = () => {
     <div style={styles.container}>
       <h1 style={styles.heading}>Good morning, Kevin!</h1>
       <div style={styles.buttonContainer}>
-        <button style={styles.button} onClick={handleInputDataClick}> {/* Add onClick event handler */}
+        <button style={styles.button} onClick={handleAskButton}> {/* Add onClick event handler */}
           <Image src="/ask.png" alt="Ask Icon" width={170} height={170} />
           <span style={styles.label}>ASK!</span>
         </button>
-        <button style={styles.button} onClick={handleInputDataClick}> {/* Add onClick event handler */}
+        <button style={styles.button} onClick={handleInputDataButton}> {/* Add onClick event handler */}
           <Image src="/input_data.png" alt="Input Data Icon" width={170} height={170} />
           <span style={styles.label}>INPUT DATA</span>
         </button>

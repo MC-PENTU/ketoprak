@@ -74,6 +74,10 @@ const InputDataPage = () => {
     setFiles(updatedFiles);
   };
 
+  const handleCancel = () => {
+    router.push('/home');
+  }
+
   return (
     <div style={styles.container}>
       <div style={styles.headerWrapper}>
@@ -123,7 +127,9 @@ const InputDataPage = () => {
         )}
       </div>
       <div style={styles.buttonsContainer}>
-        <button style={styles.cancelButton}>Cancel</button>
+        <button style={styles.cancelButton} onClick={handleCancel}>
+          Cancel
+        </button>
         <button style={styles.uploadButton} onClick={handleUpload}>
           Upload Data
         </button>
