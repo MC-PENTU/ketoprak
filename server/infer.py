@@ -18,23 +18,16 @@ def get_llm_config():
 def get_neo4j_config():
     return (URI, AUTH)
 
-def main(article_link, index=0):
+def run(article, index=0):
     # parsing input
     llm_config = get_llm_config()
     model = ArticleLLM(*llm_config)
-    response = model.inference(article_link)
-    
+    response = model.inference(article)
+    print(response)
+
     # adding query to neo4j
     neo4j_config = get_neo4j_config()
+    print(neo4j_config)
     neo4j_add_query(*neo4j_config, response)
-    
     print(f"Added query_{index} to Neo4j")
     return
-
-if __name__ == "__main__": 
-    # uncomment to reset db
-    # neo4j_delete_all(*get_neo4j_config())
-    
-    article_links = open("articles.txt", "r").readlines()
-    for i, article_link in enumerate(article_links):
-        main(article_link, index=i)

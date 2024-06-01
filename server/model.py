@@ -1,6 +1,5 @@
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
-from articles_parser import parse_news
 from typing import List
 from langchain_core.prompts import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
@@ -33,8 +32,14 @@ class ArticleLLM():
             
             Combine everything into a single query without using any comments using the MERGE Command. 
             
-            Make sure each entity is declared before using them in the relation.
+            Make sure each entity is declared before using them in the relation, and proper naming of label/variable is required such as not begining with number.
             
+            Entities can only be one of people, locations, organizations, events, objects, incidents, and resolutions. Otherwise, don't consider it as an entity.
+
+            On the other hand, properties and relationship type can be any string value
+
+            Don't include any relations or properties that are not in the article.
+
             Relations and properties extracted from the article: 
             {response}
         """
@@ -59,8 +64,7 @@ class ArticleLLM():
         self.context_chain = self.context_prompt | self.llm | self.parser
         self.cyper_chain = self.cypher_prompt | self.llm
     
-    def __run(self, article_link):
-        article = parse_news(article_link)['text']
+    def __run(self, article):
         response = self.context_chain.invoke({"article":article})
         return response
     
@@ -69,19 +73,21 @@ class ArticleLLM():
             relations = response.relations
         except:
             relations = []
+            print("No relations found")
         
         try:
             properties = response.properties
         except:
             properties = []
+            print("No properties found")
         
         outputs = relations + properties
         outputs = '\n'.join(outputs)
         
         return outputs
     
-    def inference(self, article_link):
-        response = self.__run(article_link)
+    def inference(self, article):
+        response = self.__run(article)
         response = self.__format_output(response) 
         response = self.cyper_chain.invoke({"response":response}).content
         print("Inference Successful")
