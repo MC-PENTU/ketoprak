@@ -23,11 +23,9 @@ def run(article, index=0):
     llm_config = get_llm_config()
     model = ArticleLLM(*llm_config)
     response = model.inference(article)
-    print(response)
 
     # adding query to neo4j
     neo4j_config = get_neo4j_config()
-    print(neo4j_config)
     neo4j_add_query(*neo4j_config, response)
     print(f"Added query_{index} to Neo4j")
     return
