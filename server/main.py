@@ -3,6 +3,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from supabase import create_client, Client
 from pydantic import BaseModel
 from neo4j import GraphDatabase
+from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 import logging
@@ -24,6 +25,26 @@ if not SUPABASE_URL or not SUPABASE_KEY:
     raise ValueError("Supabase URL and Key must be set in the environment variables")
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+# Neo4j configuration
+# NEO4J_URI = os.getenv("NEO4J_URI")
+# NEO4J_USER = os.getenv("NEO4J_USER")
+# NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+
+# driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+
+# CORS configuration
+origins = [
+    "http://localhost:3000",  # Your frontend origin
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class User(BaseModel):
     email: str
@@ -130,29 +151,27 @@ def get_history(token: str = Depends(oauth2_scheme)):
             detail="Error fetching chat history"
         )
 
-# Neo4j configuration
-NEO4J_URI = os.getenv("NEO4J_URI")
-NEO4J_USER = os.getenv("NEO4J_USER")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
-
-driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
-
 def process_with_langchain(file_content: str) -> str:
-    # Placeholder for actual processing
-    processed_data = file_content  
+    # Replace this with actual LangChain processing logic
+    # Here we assume it returns a string after processing
+    processed_data = file_content  # This should be replaced with actual processing
     return processed_data
 
 def store_in_neo4j(data: str):
-    #Placeholder for actual storage
     with driver.session() as session:
         session.run("CREATE (n:Data {content: $content})", content=data)
 
 @app.post("/uploadfile/")
 async def upload_file(file: UploadFile = File(...)):
     try:
+        # Read the file content
         content = await file.read()
         file_data = content.decode("utf-8")
+
+        # Process the file with LangChain
         processed_data = process_with_langchain(file_data)
+
+        # Store the processed data in Neo4j
         store_in_neo4j(processed_data)
 
         return {"status": "success"}
@@ -163,4 +182,3 @@ async def upload_file(file: UploadFile = File(...)):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e)
         )
-
