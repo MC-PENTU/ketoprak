@@ -94,18 +94,33 @@ const SearchPage = () => {
           </div>
         ))}
        {searchResult && query.includes('colombia') && (
-        <div style={styles.infoBox}>
-          <div style={styles.infoBoxContent}>
-            <div style={styles.whiteBox}>
-              <p style={{ marginBottom: '1em' }}>
-                Colombia has faced significant challenges related to terrorism, primarily due to groups like the Revolutionary Armed Forces of Colombia (FARC) and the National Liberation Army (ELN). These organizations have historically engaged in violent acts, including bombings, assassinations, and massacres, targeting civilians and security forces alike. One of the deadliest attacks in recent memory occurred on January 17, 2019, in Bogotá, the nation's capital. A car bomb exploded outside a police academy, claiming the lives of 22 people. This brazen act, attributed to the ELN, underscored the ongoing security threats faced by Colombia.
-              </p>
-              <p style={{ marginBottom: '1em' }}>
-                The attack in Bogotá highlighted the persistent challenges to peace and stability despite significant efforts to negotiate peace agreements and reduce violence. While progress has been made, pockets of conflict remain, particularly in remote rural areas. The Colombian government has undertaken extensive measures to address these issues, including dismantling illicit networks, promoting socio-economic development, and enhancing security measures. However, the complex nature of terrorism in Colombia necessitates continued vigilance and collaboration among various stakeholders.
-              </p>
-              <p>
-                Despite the lingering threat of terrorism, Colombia has demonstrated resilience in its pursuit of peace and stability. The nation's commitment to addressing the root causes of conflict and fostering reconciliation reflects a determination to overcome the challenges posed by militant groups. As Colombia continues its journey towards lasting peace, sustained efforts in tackling terrorism and promoting inclusive development will be crucial in ensuring a more secure and prosperous future for all its citizens.
-              </p>
+        <div style={styles.infoContainer}>
+          <div style={styles.storyColumn}>
+            <div style={styles.infoBox}>
+              <div style={styles.infoBoxContent}>
+                <div style={styles.whiteBox}>
+                  <p style={{ marginBottom: '1em' }}>
+                    Colombia has faced significant challenges related to terrorism, primarily due to groups like the Revolutionary Armed Forces of Colombia (FARC) and the National Liberation Army (ELN). These organizations have historically engaged in violent acts, including bombings, assassinations, and massacres, targeting civilians and security forces alike. One of the deadliest attacks in recent memory occurred on January 17, 2019, in Bogotá, the nation's capital. A car bomb exploded outside a police academy, claiming the lives of 22 people. This brazen act, attributed to the ELN, underscored the ongoing security threats faced by Colombia.
+                  </p>
+                  <p style={{ marginBottom: '1em' }}>
+                    The attack in Bogotá highlighted the persistent challenges to peace and stability despite significant efforts to negotiate peace agreements and reduce violence. While progress has been made, pockets of conflict remain, particularly in remote rural areas. The Colombian government has undertaken extensive measures to address these issues, including dismantling illicit networks, promoting socio-economic development, and enhancing security measures. However, the complex nature of terrorism in Colombia necessitates continued vigilance and collaboration among various stakeholders.
+                  </p>
+                  <p>
+                    Despite the lingering threat of terrorism, Colombia has demonstrated resilience in its pursuit of peace and stability. The nation's commitment to addressing the root causes of conflict and fostering reconciliation reflects a determination to overcome the challenges posed by militant groups. As Colombia continues its journey towards lasting peace, sustained efforts in tackling terrorism and promoting inclusive development will be crucial in ensuring a more secure and prosperous future for all its citizens.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style={styles.actionColumn}>
+            <div style={styles.recommendedActions}>
+              <h2 style={styles.heading}>Recommended Actions</h2>
+              <ul>
+                <li>1. Enhance counter-terrorism measures</li>
+                <li>2. Strengthen security forces</li>
+                <li>3. Address socio-economic disparities</li>
+                <li>4. Promote peace-building initiatives</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -234,12 +249,34 @@ const styles = {
     backgroundColor: 'white',
     borderRadius: '8px',
     padding: '20px',
-    marginTop: '20px',
-    marginBottom: '20px',
     color: 'black',
-    width: '1050px',
-    textAlign: 'justify',
-  },  
+  },
+  infoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: '20px 0',
+    width: '1030px'
+  },
+  storyColumn: {
+    flex: '0 0 70%',
+    marginRight: '20px',
+  },
+  actionColumn: {
+    flex: '0 0 30%',
+  },
+  infoBox: {
+    marginBottom: '20px',
+  },
+  recommendedActions: {
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    padding: '20px',
+    color: 'black',
+  },
+  heading: {
+    fontWeight: 'bold',
+  },
 };
 
 export default SearchPage;
