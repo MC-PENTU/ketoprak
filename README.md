@@ -19,9 +19,10 @@ KETOPRAK is a platform designed to enhance internal security by leveraging advan
 
 1. Navigate to the frontend directory.
 2. Install dependencies and run the development server:
-
+```
 npm install
 npm run dev
+```
 
 ### Backend
 
@@ -33,19 +34,19 @@ npm run dev
 #### Steps
 
 1. Create a new conda environment with Python 3.11:
-
+```
 conda create --name <venv_name> -c conda-forge python=3.11
-
+```
 2. Restart your terminal and activate the new environment:
-
+```
 conda activate <venv_name>
-
+```
 3. Install the required Python packages:
-
+```
 pip install -r requirements.txt
-
+```
 4. Initialize the Graph Database:
-
+```
 docker run \\
    -p7474:7474 \\
    -p7687:7687 \\
@@ -56,21 +57,21 @@ docker run \\
    -e NEO4J_apoc_import_file_use__neo4j__config=true \\
    -e NEO4JLABS_PLUGINS=["apoc"] \\
    neo4j:latest
-
+```
 5. Run the FastAPI server:
-
+```
 uvicorn main:app --reload
-
+```
 ### Note for Developers
 
 - Install the Python dependencies every time you pull from GitHub:
-
+```
 pip install -r requirements.txt
-
+```
 - To build and run the project using Docker Compose:
-
+```
 docker-compose up --build
-
+```
 ## Tech Stack
 
 - 🖥️ Frontend: Next.js
@@ -98,7 +99,7 @@ A subsystem focusing on the extraction and operationalization of knowledge in re
 ## Directory Structure
 
 ### Client
-
+```
 client/
 ├── ketoprak-client/
 │   ├── .next/
@@ -126,9 +127,9 @@ client/
 │   ├── next.config.mjs
 │   ├── package-lock.json
 │   └── package.json
-
+```
 ### Server
-
+```
 server/
 ├── __pycache__/
 ├── .env
@@ -149,3 +150,4 @@ server/
 ├── README.md
 ├── requirements.txt
 └── test.txt
+```
